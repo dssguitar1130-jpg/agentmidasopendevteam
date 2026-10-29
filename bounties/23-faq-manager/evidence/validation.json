@@ -1,0 +1,22 @@
+{
+  "checked_at_kst": "2026-10-29T12:48:02.736705+09:00",
+  "base_commit": "8e94549deba3a63a1db02b8c5d3f58518cf57b5f",
+  "typecheck": {
+    "exit_code": 0,
+    "strict": true,
+    "jsx": "react-jsx",
+    "module_resolution": "Bundler",
+    "typescript": "Version 5.9.3",
+    "note": "External QA harness resolves existing React 19 type declarations; repository default branch has no app manifest or tsconfig."
+  },
+  "component_tests": {
+    "command": "FAQ_QA_DIR=\"$QA_DIR\" NODE_PATH=\"$QA_DIR/node_modules\" node --test bounties/23-faq-manager/FAQManager.test.cjs",
+    "passed": 17,
+    "failed": 0,
+    "exit_code": 0
+  },
+  "production_dependencies_added": 0,
+  "production_manifests_changed": 0,
+  "host_integration_verified": false,
+  "human_technical_review_asserted": false
+}

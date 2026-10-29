@@ -1,0 +1,25 @@
+✔ renders all supplied FAQ entries without fabricated product answers (16.673458ms)
+✔ searches answer content case-insensitively and trims surrounding whitespace (4.044041ms)
+✔ normalizes compatibility Unicode during search (2.16325ms)
+✔ combines category and search rather than replacing either (2.824833ms)
+✔ clear filters restores the full list (2.478458ms)
+✔ real All categories category never collides with the all-categories sentinel (1.853125ms)
+✔ every aria-controls target exists while collapsed and expanded (2.273375ms)
+✔ supports collapsing and independently expanding answers (1.671542ms)
+✔ multiple instances and unusual item identifiers never duplicate DOM ids (1.630375ms)
+✔ keyboard ArrowUp, ArrowDown, Home and End navigate visible question buttons (2.10025ms)
+✔ controlled data refresh cannot strand a removed category (2.579375ms)
+✔ controlled data refresh reflects updated answers without remounting (1.370709ms)
+✔ empty published content has a distinct empty state (0.493875ms)
+✔ loading state suppresses stale answers and announces busy status (0.51325ms)
+✔ error state announces the error and invokes explicit retry callback (0.702125ms)
+✔ untrusted text is rendered as text, never executable HTML (0.496667ms)
+✔ server rendering requires no browser or localStorage access (2.62875ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 329.311292

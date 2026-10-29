@@ -1,0 +1,35 @@
+{
+  "browser": "156.0.8078.73",
+  "checks": [
+    {
+      "viewport": "desktop",
+      "width": 1280,
+      "height": 900,
+      "checks": [
+        "SSR hydration",
+        "combined category and answer search",
+        "empty state and reset",
+        "keyboard Home/End/Enter",
+        "ARIA targets",
+        "no horizontal overflow",
+        "rendered dark theme"
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "width": 375,
+      "height": 812,
+      "checks": [
+        "SSR hydration",
+        "combined category and answer search",
+        "empty state and reset",
+        "keyboard Home/End/Enter",
+        "ARIA targets",
+        "no horizontal overflow",
+        "rendered dark theme"
+      ]
+    }
+  ],
+  "consoleErrors": [],
+  "unexpectedRequests": []
+}
