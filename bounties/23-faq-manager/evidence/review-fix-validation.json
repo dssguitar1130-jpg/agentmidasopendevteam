@@ -1,0 +1,28 @@
+{
+  "checked_at_kst": "2026-10-29T16:29:37.211878+09:00",
+  "reviewed_commit": "06446a8c5810836d8a550eed5fd50e05520c7092",
+  "changes": [
+    "dotted-I search fold",
+    "injective fixed-width UTF-16 DOM IDs in render and focus navigation"
+  ],
+  "before_fix": {
+    "test_exit": 1,
+    "passed": 18,
+    "failed": 2,
+    "failures": [
+      "dotted-I search",
+      "URIError rendering lone-surrogate IDs"
+    ]
+  },
+  "after_fix": {
+    "test_exit": 0,
+    "passed": 20,
+    "failed": 0,
+    "strict_typecheck_exit": 0,
+    "browser_report": "review-fix-browser/browser-qa.json"
+  },
+  "original_validation_timestamp_preserved": true,
+  "production_dependencies_added": 0,
+  "host_integration_verified": false,
+  "maintainer_acceptance_or_payment_asserted": false
+}

@@ -31,7 +31,7 @@ The default branch is a documentation-only programme repository, without an appl
 ## Validation
 
 - Strict TypeScript typecheck: passed.
-- Included Node test suite: **17 passed, 0 failed**.
+- Included Node test suite: **20 passed, 0 failed**.
 - Real headless Chrome: server-rendered markup hydrated without console errors; combined category/search, no-results/reset, keyboard Home/End/Enter, valid ARIA targets, dark theme and no horizontal overflow verified at **1280 × 900** and **375 × 812**.
 - Screenshots below are from the component with illustrative, generic FAQ content, not from the Agent Midas production application.
 - No unexpected external requests occurred in the browser run.
@@ -50,6 +50,15 @@ FAQ_QA_DIR="$QA_DIR" NODE_PATH="$QA_DIR/node_modules" \
 ```
 
 The committed tests compile the component into the external QA directory. Tests cover answer-text and Unicode search; combined filters and resets; a real category named `All categories`; persistent ARIA targets; independent expansion; multiple instances and unusual identifiers; keyboard navigation; controlled data refresh; empty/loading/error states; retry; text-only rendering of HTML-shaped input; and server rendering without browser globals. Use the host application's normal `tsc --noEmit` command for integration typechecking. This repository has no root `package.json` or `tsconfig.json`; the actual strict local harness result is recorded in `evidence/validation.json`.
+
+## Review follow-up
+
+Both CodeAnt-reported input edge cases were reproduced before changing production code (18 passing tests and 2 failing regressions), then fixed:
+
+- Search folds dotted `İ` consistently in questions and queries, including canonically decomposed input, without removing unrelated accents.
+- Instance-scoped DOM identifiers use fixed-width UTF-16 encoding instead of `encodeURIComponent`, so lone surrogates cannot crash rendering or keyboard focus and remain distinct from replacement characters and emoji.
+- The expanded suite passes all 20 tests; strict TypeScript passes. Chrome desktop/mobile runs additionally verify dotted-I search, surrogate-ID server rendering/hydration, unique IDs, keyboard navigation and valid ARIA targets with no console errors or unexpected requests.
+- Follow-up evidence: [test output](evidence/review-fix-tests.log), [validation](evidence/review-fix-validation.json), and [browser checks](evidence/review-fix-browser/browser-qa.json). The original validation timestamp, original test log and original screenshots below remain unchanged as historical evidence. The automated date warning used an incorrect current-date premise; the recorded original check date was not rewritten.
 
 ## Screenshots
 

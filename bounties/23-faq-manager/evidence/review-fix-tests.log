@@ -1,0 +1,28 @@
+✔ renders all supplied FAQ entries without fabricated product answers (17.425041ms)
+✔ searches answer content case-insensitively and trims surrounding whitespace (4.295875ms)
+✔ normalizes compatibility Unicode during search (2.330958ms)
+✔ matches Turkish dotted I in either the published text or query (5.808166ms)
+✔ preserves accents other than the dotted-I case fold (1.6355ms)
+✔ arbitrary UTF-16 identifiers render with unique ARIA targets and support keyboard focus (9.239458ms)
+✔ combines category and search rather than replacing either (1.72725ms)
+✔ clear filters restores the full list (2.609917ms)
+✔ real All categories category never collides with the all-categories sentinel (1.283208ms)
+✔ every aria-controls target exists while collapsed and expanded (1.707166ms)
+✔ supports collapsing and independently expanding answers (1.664917ms)
+✔ multiple instances and unusual item identifiers never duplicate DOM ids (1.416083ms)
+✔ keyboard ArrowUp, ArrowDown, Home and End navigate visible question buttons (1.302417ms)
+✔ controlled data refresh cannot strand a removed category (1.450709ms)
+✔ controlled data refresh reflects updated answers without remounting (0.9955ms)
+✔ empty published content has a distinct empty state (0.40975ms)
+✔ loading state suppresses stale answers and announces busy status (0.523334ms)
+✔ error state announces the error and invokes explicit retry callback (0.71675ms)
+✔ untrusted text is rendered as text, never executable HTML (0.570833ms)
+✔ server rendering requires no browser or localStorage access (0.445791ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 278.007792

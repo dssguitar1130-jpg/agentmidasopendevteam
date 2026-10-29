@@ -21,7 +21,10 @@ export interface FAQManagerProps {
 }
 
 const focus = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]';
-const normalize = (text: string) => text.normalize('NFKC').trim().toLocaleLowerCase('en-US');
+// Fold dotted I after lowercasing without stripping unrelated accents.
+const normalize = (text: string) => text.normalize('NFKC').trim().toLocaleLowerCase('en-US').replace(/i\u0307/g, 'i');
+// Fixed-width UTF-16 encoding preserves every ID, including lone surrogates.
+const domKey = (id: string) => id.split('').map((unit) => unit.charCodeAt(0).toString(16).padStart(4, '0')).join('');
 
 /** No storage, network calls, third-party packages, or assumed product claims. */
 export function FAQManager({ entries, loading = false, error = null, onRetry, title = 'Frequently asked questions' }: FAQManagerProps) {
@@ -55,7 +58,7 @@ export function FAQManager({ entries, loading = false, error = null, onRetry, ti
       default: return;
     }
     event.preventDefault();
-    document.getElementById(`${uid}-question-${encodeURIComponent(visible[target].id)}`)?.focus();
+    document.getElementById(`${uid}-question-${domKey(visible[target].id)}`)?.focus();
   }
 
   return (
@@ -103,8 +106,8 @@ export function FAQManager({ entries, loading = false, error = null, onRetry, ti
                   <p className="mt-2 text-[#9CA3AF]">{entries.length === 0 ? 'Check back when new answers are available.' : 'Try a shorter search or clear your filters.'}</p>
                 </div>
               ) : visible.map((entry, index) => {
-                const id = `${uid}-question-${encodeURIComponent(entry.id)}`;
-                const panel = `${uid}-answer-${encodeURIComponent(entry.id)}`;
+                const id = `${uid}-question-${domKey(entry.id)}`;
+                const panel = `${uid}-answer-${domKey(entry.id)}`;
                 const open = expanded.has(entry.id);
                 return (
                   <article key={entry.id} className="mb-3 rounded-xl border border-[#2A2A2A] bg-[#0D0D0D] hover:bg-[#141414]">

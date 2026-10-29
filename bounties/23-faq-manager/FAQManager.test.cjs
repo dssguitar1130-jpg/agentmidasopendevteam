@@ -55,6 +55,38 @@ test('searches answer content case-insensitively and trims surrounding whitespac
 test('normalizes compatibility Unicode during search', () => {
   const { node } = mount(); search(node, 'ｉｎｖｏｉｃｅ'); assert.equal(buttons(node).length, 1);
 });
+test('matches Turkish dotted I in either the published text or query', () => {
+  for (const text of ['İstanbul', 'I\u0307STANBUL', 'istanbul']) {
+    const { node } = mount({ entries: [{ ...entries[0], question: text }] });
+    for (const query of ['istanbul', 'İSTANBUL', 'I\u0307stanbul']) {
+      search(node, query); assert.equal(buttons(node).length, 1, `${text} / ${query}`);
+    }
+  }
+});
+test('preserves accents other than the dotted-I case fold', () => {
+  const { node } = mount({ entries: [{ ...entries[0], question: 'résumé' }] });
+  search(node, 'RESUME'); assert.equal(buttons(node).length, 0);
+  search(node, 'RÉSUMÉ'); assert.equal(buttons(node).length, 1);
+});
+test('arbitrary UTF-16 identifiers render with unique ARIA targets and support keyboard focus', () => {
+  const ids = ['\ud800', '\udc00', '\ufffd', '😀', 'd800', '', 'a /?#한글'];
+  const unusual = ids.map((id, i) => ({ ...entries[0], id, question: `Question ${i}` }));
+  const { node } = mount({ entries: unusual });
+  const list = buttons(node); assert.equal(list.length, ids.length);
+  const domIds = [...node.querySelectorAll('[id]')].map((element) => element.id);
+  assert.equal(new Set(domIds).size, domIds.length);
+  for (const button of list) {
+    const panel = document.getElementById(button.getAttribute('aria-controls'));
+    assert.ok(panel); assert.equal(panel.getAttribute('aria-labelledby'), button.id);
+    click(button); assert.equal(panel.hidden, false);
+  }
+  list[0].focus();
+  act(() => list[0].dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true })));
+  assert.equal(document.activeElement, list[1]);
+  act(() => list[1].dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'End', bubbles: true })));
+  assert.equal(document.activeElement, list[list.length - 1]);
+  assert.doesNotThrow(() => renderToString(React.createElement(FAQManager, { entries: unusual })));
+});
 test('combines category and search rather than replacing either', () => {
   const { node } = mount(); click(category(node, 'Billing')); search(node, 'password'); assert.equal(buttons(node).length, 0); assert.match(node.textContent, /No matching FAQs/);
 });
